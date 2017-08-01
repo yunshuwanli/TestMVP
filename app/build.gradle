@@ -1,0 +1,61 @@
+apply plugin: 'com.android.application'
+apply from: '../version.gradle'
+android {
+    compileSdkVersion MCompileSdkVersion
+    buildToolsVersion MBuildToolsVersion
+    defaultConfig {
+        applicationId "yswl.com.testmvp"
+        minSdkVersion MminSdkVersion
+        targetSdkVersion MtargetSdkVersion
+        versionCode MVersionCode
+        versionName MVersionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        vectorDrawables.useSupportLibrary = true //向下兼容矢量图appcomtDrawable
+    }
+    buildTypes {
+        release {
+            minifyEnabled true
+            pseudoLocalesEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            minifyEnabled false
+            pseudoLocalesEnabled true
+        }
+    }
+
+    productFlavors {
+        tes_apk {
+
+            applicationId "yswl.com.testmvp.test"
+            buildConfigField("String", "base_url", '\"http://www.baidu.com.test\"')
+            buildConfigField("boolean", "debug", "true")
+        }
+        dev_apk {
+            applicationId "yswl.com.testmvp.dev"
+            buildConfigField("String", "base_url", '\"http://www.baidu.com.dev\"');
+            buildConfigField("boolean", "debug", "true")
+        }
+        bate_apk {
+            applicationId "yswl.com.testmvp"
+            buildConfigField("String", "base_url", '\"http://www.baidu.com\"');
+            buildConfigField("boolean", "debug", "true")
+        }
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    compile project(':klibrary')
+    compile 'com.android.support:design:25.3.1'
+    compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.android.support:support-vector-drawable:25.3.1'
+    compile 'com.bigkoo:convenientbanner:2.0.5'
+    compile 'com.airbnb.android:lottie:2.0.0-rc1'
+    compile 'com.android.support:support-v4:25.3.1'
+    testCompile 'junit:junit:4.12'
+    compile 'com.lsjwzh:materialloadingprogressbar:0.5.8-RELEASE'
+}
