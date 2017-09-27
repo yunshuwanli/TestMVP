@@ -16,9 +16,13 @@ android {
         release {
             minifyEnabled true
             pseudoLocalesEnabled true
+            buildConfigField("String", "base_url", '\"http://www.baidu.com.test\"')
+            buildConfigField("boolean", "debug", "true")
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
         debug {
+            buildConfigField("String", "base_url", '\"http://www.baidu.com.dev\"');
+            buildConfigField("boolean", "debug", "true")
             minifyEnabled false
             pseudoLocalesEnabled true
         }
