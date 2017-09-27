@@ -1,18 +1,17 @@
 apply plugin: 'com.android.application'
+apply from: '../version.gradle'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.3"
-
+    compileSdkVersion MCompileSdkVersion
+    buildToolsVersion MBuildToolsVersion
     defaultConfig {
-        applicationId "com.yswl.priv"
-        minSdkVersion 15
-        targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
-
+        applicationId "yswl.com.testmvp"
+        minSdkVersion MminSdkVersion
+        targetSdkVersion MtargetSdkVersion
+        versionCode MVersionCode
+        versionName MVersionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
+        vectorDrawables.useSupportLibrary = true //向下兼容矢量图appcomtDrawable
     }
     buildTypes {
         release {

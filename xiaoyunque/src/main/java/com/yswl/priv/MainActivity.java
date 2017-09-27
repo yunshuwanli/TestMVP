@@ -1,23 +1,19 @@
 package com.yswl.priv;
 
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.design.widget.BottomNavigationView;
 import android.support.design.widget.TabLayout;
-import android.view.MenuItem;
 
-import com.yswl.priv.Navigation.AuthFragment;
-import com.yswl.priv.Navigation.BorrowInfoFragment;
 import com.yswl.priv.Navigation.DataGenerator;
-import com.yswl.priv.Navigation.HomeFragment;
-import com.yswl.priv.Navigation.UserInfoFragment;
-import com.yswl.priv.R;
 
 import yswl.com.klibrary.base.MActivity;
 import yswl.com.klibrary.base.MFragment;
+import yswl.com.klibrary.debug.L;
 
-public class MainActivity extends MActivity implements HomeFragment.OnFragmentInteractionListener {
+/**
+ * 主页集成无Toolbar MActivity
+ */
+public class MainActivity extends MActivity  {
+    private static final String TAG = MainActivity.class.getSimpleName();
     TabLayout mTabLayout;
 
     @Override
@@ -29,8 +25,8 @@ public class MainActivity extends MActivity implements HomeFragment.OnFragmentIn
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                L.e(TAG,"postion :"+tab.getPosition());
                 onTabItemSelected(tab.getPosition());
-                //改变Tab 状态
                 for(int i=0;i< mTabLayout.getTabCount();i++){
                     if(i == tab.getPosition()){
                         mTabLayout.getTabAt(i).setIcon(getResources().getDrawable(DataGenerator.mTabResPressed[i]));
@@ -54,33 +50,31 @@ public class MainActivity extends MActivity implements HomeFragment.OnFragmentIn
         mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.mipmap.ic_launcher_round)).setText(DataGenerator.mTabTitle[1]));
         mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.mipmap.ic_launcher_round)).setText(DataGenerator.mTabTitle[2]));
         mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.mipmap.ic_launcher_round)).setText(DataGenerator.mTabTitle[3]));
-
+        onTabItemSelected(0);
 
     }
     private MFragment[] mFragments;
-    private void onTabItemSelected(int id){
+    private void onTabItemSelected(int postion){
         MFragment fragment = null;
-        switch (id){
-            case R.id.tab_menu_home:
+        switch (postion){
+            case 0:
                 fragment = mFragments[0] ;
                 break;
-            case R.id.tab_menu_barrow:
+            case 1:
                 fragment = mFragments[1];
                 break;
-            case R.id.tab_menu_auth:
+            case 2:
                 fragment = mFragments[2];
                 break;
-            case R.id.tab_menu_user:
+            case 3:
                 fragment = mFragments[3];
                 break;
         }
         if(fragment!=null) {
+            L.e(TAG,"come to");
             getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment).commit();
         }
     }
 
-    @Override
-    public void onFragmentInteraction(Uri uri) {
 
-    }
 }
