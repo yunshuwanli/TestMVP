@@ -22,6 +22,7 @@ public class GsonUtil {
     }
 
     private GsonUtil() {
+        throw new UnsupportedOperationException("cannot be instantiated");
     }
 
     /**

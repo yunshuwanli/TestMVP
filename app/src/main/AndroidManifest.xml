@@ -35,7 +35,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.Main4Activity"
+            android:name=".refresh.Main4Activity"
             android:launchMode="singleTask"/>
     </application>
 

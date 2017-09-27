@@ -51,7 +51,7 @@ public class MainActivity extends MActivity {
 
         linearLayoutManager.setOrientation(OrientationHelper.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
+//        recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL_LIST));
         adapter = new RefreshRecyclerAdapter(this, bannerBeens);
         adapter.setItemLayoutId(R.layout.recycle_item_normal);
         adapter.setOnLoaderMoreListener(new BaseRecyclerAdapter.OnLoaderMoreListener() {

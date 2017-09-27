@@ -9,16 +9,14 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
+import yswl.com.klibrary.base.MActivity;
 import yswl.com.testmvp.MainActivity;
 import yswl.com.testmvp.R;
 import yswl.com.testmvp.Util.MKeyBoardUtils;
 import yswl.com.testmvp.presenter.LoginPresenter;
 import yswl.com.testmvp.view.LoginV;
 
-public class LoginActivity extends AppCompatActivity implements LoginV, View.OnClickListener {
-    public <T extends View> T findView(int id) {
-        return (T) findViewById(id);
-    }
+public class LoginActivity extends MActivity implements LoginV, View.OnClickListener {
 
     EditText mName, mPwd;
     Button mLogin;

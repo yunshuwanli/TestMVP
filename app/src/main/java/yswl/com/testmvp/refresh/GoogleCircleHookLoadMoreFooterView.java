@@ -1,39 +1,36 @@
-package yswl.com.testmvp.fragment;
+package yswl.com.testmvp.refresh;
 
-import android.annotation.TargetApi;
 import android.content.Context;
-import android.os.Build;
 import android.support.v4.view.ViewCompat;
 import android.util.AttributeSet;
 import android.widget.FrameLayout;
 
-import com.aspsine.swipetoloadlayout.SwipeRefreshTrigger;
+import com.aspsine.swipetoloadlayout.SwipeLoadMoreTrigger;
 import com.aspsine.swipetoloadlayout.SwipeTrigger;
 
 import yswl.com.testmvp.R;
+import yswl.com.testmvp.refresh.GoogleCircleProgressView;
 
-/**
- * Created by aspsine on 15/11/7.
- */
-public class GoogleCircleHookRefreshHeaderView extends FrameLayout implements SwipeTrigger, SwipeRefreshTrigger {
+public class GoogleCircleHookLoadMoreFooterView extends FrameLayout implements SwipeTrigger, SwipeLoadMoreTrigger {
+
     private GoogleCircleProgressView progressView;
 
     private int mTriggerOffset;
 
     private int mFinalOffset;
 
-    public GoogleCircleHookRefreshHeaderView(Context context) {
+    public GoogleCircleHookLoadMoreFooterView(Context context) {
         this(context, null);
     }
 
-    public GoogleCircleHookRefreshHeaderView(Context context, AttributeSet attrs) {
+    public GoogleCircleHookLoadMoreFooterView(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
 
-    public GoogleCircleHookRefreshHeaderView(Context context, AttributeSet attrs, int defStyleAttr) {
+    public GoogleCircleHookLoadMoreFooterView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        mTriggerOffset = context.getResources().getDimensionPixelOffset(R.dimen.refresh_header_height_google);
-        mFinalOffset = context.getResources().getDimensionPixelOffset(R.dimen.refresh_final_offset_google);
+        mTriggerOffset = context.getResources().getDimensionPixelOffset(R.dimen.load_more_footer_height_google);
+        mFinalOffset = context.getResources().getDimensionPixelOffset(R.dimen.load_more_final_offset_google);
     }
 
 
@@ -50,7 +47,7 @@ public class GoogleCircleHookRefreshHeaderView extends FrameLayout implements Sw
     }
 
     @Override
-    public void onRefresh() {
+    public void onLoadMore() {
         progressView.start();
     }
 
@@ -61,10 +58,10 @@ public class GoogleCircleHookRefreshHeaderView extends FrameLayout implements Sw
 
     @Override
     public void onMove(int y, boolean isComplete, boolean automatic) {
-        float alpha = y / (float) mTriggerOffset;
+        float alpha = -y / (float) mTriggerOffset;
         ViewCompat.setAlpha(progressView, alpha);
         if (!isComplete) {
-            progressView.setProgressRotation(y / (float) mFinalOffset);
+            progressView.setProgressRotation(-y / (float) mFinalOffset);
         }
     }
 
@@ -73,18 +70,14 @@ public class GoogleCircleHookRefreshHeaderView extends FrameLayout implements Sw
 
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB_MR1)
     @Override
     public void onComplete() {
-        progressView.animate().scaleX(0).scaleY(0).setDuration(300);
     }
 
     @Override
     public void onReset() {
         progressView.stop();
         ViewCompat.setAlpha(progressView, 1f);
-        ViewCompat.setScaleX(progressView, 1f);
-        ViewCompat.setScaleY(progressView, 1f);
     }
 
 }

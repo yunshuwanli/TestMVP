@@ -3,7 +3,7 @@ package yswl.com.testmvp.bean;
 import java.util.ArrayList;
 import java.util.List;
 
-import yswl.com.testmvp.fragment.Character;
+import yswl.com.testmvp.refresh.Character;
 
 /**
  * Created by kangpAdministrator on 2017/6/8 0008.

@@ -1,4 +1,4 @@
-package yswl.com.testmvp.fragment;
+package yswl.com.testmvp.refresh;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

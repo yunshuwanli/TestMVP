@@ -5,13 +5,12 @@ import android.animation.ValueAnimator;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
-import android.widget.LinearLayout;
 
 import com.airbnb.lottie.LottieAnimationView;
 
 import yswl.com.klibrary.base.MActivity;
-import yswl.com.testmvp.MainActivity;
 import yswl.com.testmvp.R;
+import yswl.com.testmvp.refresh.Main4Activity;
 
 public class WelcomeActivity extends MActivity {
     LottieAnimationView animationView;
@@ -40,7 +39,7 @@ public class WelcomeActivity extends MActivity {
 
             @Override
             public void onAnimationEnd(Animator animation) {
-                startActivity(new Intent(WelcomeActivity.this, Main4Activity.class));
+                startActivity(new Intent(WelcomeActivity.this, LoginActivity.class));
                 finish();
             }
 

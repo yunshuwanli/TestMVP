@@ -1,4 +1,4 @@
-package yswl.com.testmvp.fragment;
+package yswl.com.testmvp.refresh;
 
 /**
  * Created by Aspsine on 2015/9/2.

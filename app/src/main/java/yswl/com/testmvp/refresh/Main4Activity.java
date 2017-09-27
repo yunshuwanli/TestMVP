@@ -1,4 +1,4 @@
-package yswl.com.testmvp.activity;
+package yswl.com.testmvp.refresh;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -13,7 +13,7 @@ import java.util.List;
 
 import yswl.com.klibrary.base.MActivity;
 import yswl.com.testmvp.R;
-import yswl.com.testmvp.fragment.Main4Fragment;
+import yswl.com.testmvp.refresh.Main4Fragment;
 
 public class Main4Activity extends MActivity {
     private ViewPager viewPager;

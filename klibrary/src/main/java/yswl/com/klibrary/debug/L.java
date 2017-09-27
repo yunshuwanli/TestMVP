@@ -21,13 +21,6 @@ public class L {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-    /**
-     * 打包注意
-     * SessionAjaxCallback  agent svn version
-     * LxUrl  地址
-     * BaseCasAuthHandler  cas 地址
-     * SVNCODE
-     */
     public static final boolean DEGUG = MApplication.getApplication().getDebugSetting();
 
     public static void d(String tag, String msg) {

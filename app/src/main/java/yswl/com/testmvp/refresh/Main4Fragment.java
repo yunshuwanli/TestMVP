@@ -1,4 +1,4 @@
-package yswl.com.testmvp.fragment;
+package yswl.com.testmvp.refresh;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;

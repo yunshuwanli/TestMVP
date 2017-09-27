@@ -13,10 +13,7 @@ import android.widget.TextView;
 import yswl.com.testmvp.R;
 
 
-/**
- * @author nixn@yunhetong.net
- */
-public class CommonEmptyView extends FrameLayout implements
+ public class CommonEmptyView extends FrameLayout implements
         View.OnClickListener {
 
     public CommonEmptyView(Context context) {

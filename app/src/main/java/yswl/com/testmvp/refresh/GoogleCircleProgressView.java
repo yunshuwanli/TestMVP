@@ -1,4 +1,4 @@
-package yswl.com.testmvp.fragment;
+package yswl.com.testmvp.refresh;
 
 import android.content.Context;
 import android.content.res.Resources;
