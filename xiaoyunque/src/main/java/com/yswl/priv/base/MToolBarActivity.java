@@ -16,8 +16,6 @@ public class MToolBarActivity extends MActivity implements View.OnClickListener 
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-
-
     }
 
     @Override

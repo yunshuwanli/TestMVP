@@ -5,27 +5,45 @@
     android:orientation="vertical"
     tools:context="com.yswl.priv.Navigation.AuthFragment">
 
-    <ImageView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:background="@mipmap/ic_banner_1"
-        />
+        android:fitsSystemWindows="true">
+
+        <ImageView
+            android:id="@+id/iv_user_avatar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:id="@+id/tv_user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_user_avatar"
+            android:layout_centerHorizontal="true"
+            android:text="周杰伦"
+            android:textSize="18sp" />
+    </RelativeLayout>
+
 
     <LinearLayout
         android:id="@+id/ll_msg_center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:src="@mipmap/ic_banner_1">
+        android:orientation="vertical">
+
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher_round"
-            />
+            android:src="@mipmap/ic_launcher_round" />
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="消息中心"/>
-        </LinearLayout>
+            android:text="消息中心" />
+    </LinearLayout>
 
 </LinearLayout>

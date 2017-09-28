@@ -2,6 +2,8 @@ package com.yswl.priv;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 
 import com.yswl.priv.Navigation.DataGenerator;
 
@@ -12,7 +14,7 @@ import yswl.com.klibrary.debug.L;
 /**
  * 主页集成无Toolbar MActivity
  */
-public class MainActivity extends MActivity  {
+public class MainActivity extends MActivity {
     private static final String TAG = MainActivity.class.getSimpleName();
     TabLayout mTabLayout;
 
@@ -25,15 +27,16 @@ public class MainActivity extends MActivity  {
         mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                L.e(TAG,"postion :"+tab.getPosition());
-                onTabItemSelected(tab.getPosition());
-                for(int i=0;i< mTabLayout.getTabCount();i++){
-                    if(i == tab.getPosition()){
+                L.e(TAG, "postion :" + tab.getPosition());
+
+                for (int i = 0; i < mTabLayout.getTabCount(); i++) {
+                    if (i == tab.getPosition()) {
                         mTabLayout.getTabAt(i).setIcon(getResources().getDrawable(DataGenerator.mTabResPressed[i]));
-                    }else{
+                    } else {
                         mTabLayout.getTabAt(i).setIcon(getResources().getDrawable(DataGenerator.mTabRes[i]));
                     }
                 }
+                onTabItemSelected(tab.getPosition());
             }
 
             @Override
@@ -50,15 +53,20 @@ public class MainActivity extends MActivity  {
         mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.mipmap.ic_launcher_round)).setText(DataGenerator.mTabTitle[1]));
         mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.mipmap.ic_launcher_round)).setText(DataGenerator.mTabTitle[2]));
         mTabLayout.addTab(mTabLayout.newTab().setIcon(getResources().getDrawable(R.mipmap.ic_launcher_round)).setText(DataGenerator.mTabTitle[3]));
-        onTabItemSelected(0);
-
+        // 默认显示第一页
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        ft.add(R.id.content, mFragments[0], mFragments[0].getClass().getSimpleName());
+        ft.commit();
     }
+
     private MFragment[] mFragments;
-    private void onTabItemSelected(int postion){
-        MFragment fragment = null;
-        switch (postion){
+    private int index = 0;
+    private void onTabItemSelected(int postion) {
+        if (index == postion) return;
+        Fragment fragment = null;
+        switch (postion) {
             case 0:
-                fragment = mFragments[0] ;
+                fragment = mFragments[0];
                 break;
             case 1:
                 fragment = mFragments[1];
@@ -70,11 +78,18 @@ public class MainActivity extends MActivity  {
                 fragment = mFragments[3];
                 break;
         }
-        if(fragment!=null) {
-            L.e(TAG,"come to");
-            getSupportFragmentManager().beginTransaction().replace(R.id.content,fragment).commit();
+        if (fragment == null) return;
+        FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+        mFragments[index].onPause(); // 暂停当前tab
+        if (fragment.isAdded()) {
+            fragment.onResume(); // 启动目标tab的onResume()
+        } else {
+            ft.add(R.id.content, fragment);
         }
+        ft.hide(mFragments[index]);
+        ft.show(fragment); // 显示目标tab
+        ft.commitAllowingStateLoss();
+        index = postion;
     }
-
 
 }

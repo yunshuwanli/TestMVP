@@ -2,13 +2,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.yswl.priv.Navigation.HomeFragment">
+
+    tools:context="com.yswl.priv.Navigation.AuthFragment">
 
     <RelativeLayout
+        android:background="@mipmap/ic_banner_1"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
         android:fitsSystemWindows="true"
-        android:background="@mipmap/ic_banner_1">
+        android:layout_height="120dp">
 
         <ImageView
             android:id="@+id/iv_user_avatar"
