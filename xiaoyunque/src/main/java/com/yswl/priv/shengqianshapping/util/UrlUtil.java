@@ -13,7 +13,7 @@ import yswl.com.klibrary.MApplication;
 
 
 /**
- * url 管理
+ * 路径 管理
  *
  */
 public class UrlUtil {

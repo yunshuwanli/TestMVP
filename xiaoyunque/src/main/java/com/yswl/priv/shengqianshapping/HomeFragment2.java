@@ -12,6 +12,8 @@ import com.bigkoo.convenientbanner.ConvenientBanner;
 import com.yswl.priv.R;
 import com.yswl.priv.shengqianshapping.banner.BannerBean;
 import com.yswl.priv.shengqianshapping.banner.BannerUtil;
+import com.yswl.priv.shengqianshapping.bean.CategoryBean;
+import com.yswl.priv.shengqianshapping.bean.ResultUtil;
 import com.yswl.priv.shengqianshapping.util.UrlUtil;
 
 import org.json.JSONObject;
@@ -72,11 +74,20 @@ public class HomeFragment2 extends MFragment implements HttpCallback<JSONObject>
         mConvenientBanner = (ConvenientBanner) view.findViewById(R.id.convenientBanner);
         initBanner();
         requestData();
+        requestBanner();
     }
+
+    private static final int REQUEST_ID_CATEGROY = 100;
+    private static final int REQUEST_ID_BANNER = 101;
 
     private void requestData() {
         String url = UrlUtil.getUrl(this, R.string.url_category_type_list);
-        HttpClientProxy.getInstance().postAsyn(url, 1, null, this);
+        HttpClientProxy.getInstance().postAsyn(url, REQUEST_ID_CATEGROY, null, this);
+    }
+
+    private void requestBanner() {
+        String url = UrlUtil.getUrl(this, R.string.url_banner_list);
+        HttpClientProxy.getInstance().postAsyn(url, REQUEST_ID_BANNER, null, this);
     }
 
     void initBanner() {
@@ -100,7 +111,20 @@ public class HomeFragment2 extends MFragment implements HttpCallback<JSONObject>
 
     @Override
     public void onSucceed(int requestId, JSONObject result) {
-        L.d(TAG, "onSucceed :" + result);
+        if (ResultUtil.isCodeOK(result)) {
+
+            switch (requestId) {
+                case REQUEST_ID_BANNER:
+                    mImags = BannerBean.jsonToList(
+                            ResultUtil.analysisData(result).optJSONArray(ResultUtil.LIST));
+                    banner.loadPic(mImags);
+                    break;
+                case REQUEST_ID_CATEGROY:
+                    List<CategoryBean> listDate = CategoryBean.jsonToList(
+                            ResultUtil.analysisData(result).optJSONArray(ResultUtil.LIST));
+                    break;
+            }
+        }
 
     }
 

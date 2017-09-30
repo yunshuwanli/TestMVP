@@ -32,23 +32,23 @@ public class LocalImageHolderView implements Holder<BannerBean> {
     @Override
     public void UpdateUI(final Context context, final int position, final BannerBean data) {
         if (data != null) {
-            if (!data.uri.startsWith("http")) {
+            if (!data.imgUrl.startsWith("http")) {
                 try {
                     //加载resId
-                    Glide.with(context).load(Integer.valueOf(data.uri)).into(imageView);
+                    Glide.with(context).load(Integer.valueOf(data.imgUrl)).into(imageView);
                 } catch (NumberFormatException e) {
                     e.printStackTrace();
                 }
             } else {
-                Glide.with(context).load(data.uri).into(imageView);
+                Glide.with(context).load(data.imgUrl).into(imageView);
             }
 
-            if (!TextUtils.isEmpty(data.url)) {
+            if (!TextUtils.isEmpty(data.link)) {
                 imageView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
                         //链接跳转
-//                        String linkUrl = data.url;
+//                        String linkUrl = data.link;
                     }
                 });
             }

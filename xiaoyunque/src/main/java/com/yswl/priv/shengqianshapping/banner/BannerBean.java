@@ -15,13 +15,13 @@ import yswl.com.klibrary.util.DateJsonDeserializer;
 
 public class BannerBean {
 
-    public String uri;
-    public String url;
+    public String id;
+    public String imgUrl;
+    public String link;
 
-    public BannerBean(String uri) {
-        this.uri = uri;
+    public BannerBean(String imgUrl) {
+        this.imgUrl = imgUrl;
     }
-
 
     public static List<BannerBean> jsonToList(JSONArray objarray) {
         if (objarray == null)

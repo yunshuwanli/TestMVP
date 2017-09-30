@@ -3,10 +3,8 @@ package com.yswl.priv.shengqianshapping.bean;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import com.yswl.priv.shengqianshapping.banner.BannerBean;
 
 import org.json.JSONArray;
-import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.Date;
@@ -22,7 +20,6 @@ import yswl.com.klibrary.util.DateJsonDeserializer;
 public class CategoryBean {
     String pid;
     String title;
-    BannerBean banner;
 
     public static List<CategoryBean> jsonToList(JSONArray objarray) {
         if (objarray == null) return null;
