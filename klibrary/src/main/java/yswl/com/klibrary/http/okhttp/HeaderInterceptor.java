@@ -9,6 +9,7 @@ import okhttp3.Interceptor;
 import okhttp3.Request;
 import okhttp3.Response;
 import yswl.com.klibrary.MApplication;
+import yswl.com.klibrary.util.MAppInfoUtil;
 
 
 public class HeaderInterceptor implements Interceptor {
@@ -20,8 +21,9 @@ public class HeaderInterceptor implements Interceptor {
     @Override
     public Response intercept(Chain chain) throws IOException {
         Request oldRequest = chain.request();
-        Request newRequest = oldRequest.newBuilder().addHeader(MAC_KEY, getMAC())
-                .addHeader(AGENT, getDeviceInfo()).build();
+        Request.Builder builder = oldRequest.newBuilder();
+//        builder.addHeader(MAC_KEY, getMAC()).addHeader(AGENT, getDeviceInfo());
+        Request newRequest = addHeaders(builder).build();
         return chain.proceed(newRequest);
     }
 
@@ -29,15 +31,22 @@ public class HeaderInterceptor implements Interceptor {
     /**
      * 统一为请求添加头信息
      *
-     * @return
+     * @return ex
      */
-    private Request.Builder addHeaders(Request.Builder builder) {
+    private Request.Builder addHeadersV(Request.Builder builder) {
         return builder
                 .addHeader("Connection", "keep-alive")
                 .addHeader("platform", "2")
                 .addHeader("phoneModel", Build.MODEL)
                 .addHeader("systemVersion", Build.VERSION.RELEASE)
-                .addHeader("appVersion", "3.2.0");
+                .addHeader("appVersion", MAppInfoUtil.getVersionName(MApplication.getApplication()));
+    }
+    private Request.Builder addHeaders(Request.Builder builder) {
+        return builder
+                .addHeader("deviceType", "2")
+                .addHeader("deviceToken", getMAC())
+                .addHeader("appVersion", MAppInfoUtil.getVersionName(MApplication.getApplication()))
+                .addHeader("osVersion", Build.VERSION.RELEASE);
     }
 
     public static String getMAC() {

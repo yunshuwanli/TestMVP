@@ -118,18 +118,20 @@ public class HttpClientProxy implements IRequestMethod {
     }
 
     @Override
-    public void postJSONAsyn(String url, final int requestId, @NonNull Map<String, Object> paramsMap, final HttpCallback<JSONObject> httpCallback) {
+    public void postJSONAsyn(String url, final int requestId, Map<String, Object> paramsMap, final HttpCallback<JSONObject> httpCallback) {
         try {
             StringBuilder tempParams = new StringBuilder();
             int pos = 0;
-            for (String key : paramsMap.keySet()) {
-                if (pos > 0) {
-                    tempParams.append("&");
+            if (paramsMap != null) {
+                for (String key : paramsMap.keySet()) {
+                    if (pos > 0) {
+                        tempParams.append("&");
+                    }
+                    Object obj = paramsMap.get(key);
+                    String value = (obj instanceof String) ? (String) obj : String.valueOf(obj);
+                    tempParams.append(String.format("%s=%s", key, URLEncoder.encode(value, "utf-8")));
+                    pos++;
                 }
-                Object obj = paramsMap.get(key);
-                String value = (obj instanceof String) ? (String) obj : String.valueOf(obj);
-                tempParams.append(String.format("%s=%s", key, URLEncoder.encode(value, "utf-8")));
-                pos++;
             }
             String params = tempParams.toString();
             RequestBody body = RequestBody.create(MEDIA_TYPE_JSON, params);
@@ -161,13 +163,15 @@ public class HttpClientProxy implements IRequestMethod {
     }
 
     @Override
-    public void postAsyn(String url, final int requestId, @NonNull Map<String, Object> paramsMap, final HttpCallback<JSONObject> httpCallback) {
+    public void postAsyn(String url, final int requestId, Map<String, Object> paramsMap, final HttpCallback<JSONObject> httpCallback) {
         try {
             FormBody.Builder builder = new FormBody.Builder();
-            for (String key : paramsMap.keySet()) {
-                Object obj = paramsMap.get(key);
-                String value = (obj instanceof String) ? (String) obj : String.valueOf(obj);
-                builder.add(key, URLEncoder.encode(value, "utf-8"));
+            if (paramsMap != null) {
+                for (String key : paramsMap.keySet()) {
+                    Object obj = paramsMap.get(key);
+                    String value = (obj instanceof String) ? (String) obj : String.valueOf(obj);
+                    builder.add(key, URLEncoder.encode(value, "utf-8"));
+                }
             }
             RequestBody body = builder.build();
             String requestUrl;
@@ -389,11 +393,11 @@ public class HttpClientProxy implements IRequestMethod {
             response.close();
         }
         Log.e(TAG, "onSucceed data:" + result);
-        callback(requestId, response.code(), result, msg, callback);
+        callback(requestId, code, result, msg, callback);
     }
 
 
-    private void callback(int requestId, int code, JSONObject object, String msg, HttpCallback<JSONObject> callback) {
+    private void callback(int requestId, final int code, JSONObject object, final String msg, HttpCallback<JSONObject> callback) {
         if (null == callback) return;
         switch (code) {
             case 200:
@@ -423,7 +427,12 @@ public class HttpClientProxy implements IRequestMethod {
                 break;
             default:
                 callback.onFail(requestId, "Undefined error " + msg);
-                ToastUtil.showToast("Undefined error " + msg + code);
+                MApplication.getApplication().getGolbalHander().post(new Runnable() {
+                    @Override
+                    public void run() {
+                        ToastUtil.showToast("Undefined error " + msg + code);
+                    }
+                });
                 break;
         }
     }

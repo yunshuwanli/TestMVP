@@ -15,7 +15,6 @@ import yswl.com.klibrary.base.MFragment;
 public class MainActivityV3 extends MActivity {
 
     BottomNavigationBar bottomNavigationBar;
-
     int lastSelectedPosition = 0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,10 +45,10 @@ public class MainActivityV3 extends MActivity {
         bottomNavigationBar.setBackgroundStyle(0);
 
         bottomNavigationBar
-                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher_round, "Home").setActiveColorResource(R.color.colorAccent)/*.setBadgeItem(numberBadgeItem)*/)
-                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher_round, "Books").setActiveColorResource(R.color.colorPrimary))
-                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher_round, "Music").setActiveColorResource(R.color.colorPrimaryDark)/*.setBadgeItem(shapeBadgeItem)*/)
-                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher_round, "Movies & TV").setActiveColorResource(R.color.colorPrimary))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher_round, "首页").setActiveColorResource(R.color.colorAccent)/*.setBadgeItem(numberBadgeItem)*/)
+                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher_round, "包邮").setActiveColorResource(R.color.colorPrimary))
+                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher_round, "返利").setActiveColorResource(R.color.colorPrimaryDark)/*.setBadgeItem(shapeBadgeItem)*/)
+                .addItem(new BottomNavigationItem(R.mipmap.ic_launcher_round, "我的").setActiveColorResource(R.color.colorPrimary))
                 .setFirstSelectedPosition(lastSelectedPosition > 3 ? 3 : lastSelectedPosition)
                 .initialise();
 

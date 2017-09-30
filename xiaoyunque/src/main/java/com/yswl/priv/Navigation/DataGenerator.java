@@ -7,6 +7,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.yswl.priv.R;
+import com.yswl.priv.shengqianshapping.HomeFragment2;
+import com.yswl.priv.shengqianshapping.PinkageFragment;
+import com.yswl.priv.shengqianshapping.RebateFragment;
+import com.yswl.priv.shengqianshapping.UserInfoFragment2;
 
 import yswl.com.klibrary.base.MFragment;
 
@@ -18,10 +22,10 @@ public class DataGenerator {
 
     public static MFragment[] getFragments() {
         MFragment fragments[] = new MFragment[4];
-        fragments[0] = new HomeFragment();
-        fragments[1] = new BorrowInfoFragment();
-        fragments[2] = new AuthFragment();
-        fragments[3] = new UserInfoFragment();
+        fragments[0] = new HomeFragment2();
+        fragments[1] = new RebateFragment();
+        fragments[2] = new PinkageFragment();
+        fragments[3] = new UserInfoFragment2();
         return fragments;
     }
     public static View getTabView(Context context, int position){
